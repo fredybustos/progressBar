@@ -17,20 +17,6 @@ jobs:
       with:
         access_token: ${{ github.token }}
 
-  linter: 
-    runs-on:  ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - uses: actions/setup-node@v3
-        with:
-          node_version: 16
-      - name: Install dependencies
-        run: npm ci
-      - name: Lint
-        run: npm run lint
-
   build: 
     runs-on: ubuntu-latest
     steps:
@@ -50,7 +36,7 @@ jobs:
           path: dist
           
   test:
-    needs: [linter, build]
+    needs: [build]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
